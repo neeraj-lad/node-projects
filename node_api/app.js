@@ -42,6 +42,14 @@ server.put('/user/:id', function(req, res, next){
 	return next();
 });
 
+server.del('/user/:id', function(req, res, next){
+	delete users[parseInt(req.params.id)];
+	res.setHeader('content-type', 'application/json');
+	res.writeHead(200);
+	res.end(JSON.stringify(true));
+	return next();
+});
+
 server.listen(8080, function(){
 	console.log('%s listening at %s', server.name, server.url);
 });
