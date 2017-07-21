@@ -30,6 +30,18 @@ server.post('/user', function(req, res, next){
 	return next();
 });
 
+server.put('/user/:id', function(req, res, next){
+	var user = users[parseInt(req.params.id)];
+	var updates = req.params;
+	for (var field in updates) {
+		user[field] = updates[field];	
+	}
+	res.setHeader('content-type', 'application/json');
+	res.writeHead(200);
+	res.end(JSON.stringify(user));
+	return next();
+});
+
 server.listen(8080, function(){
 	console.log('%s listening at %s', server.name, server.url);
 });
