@@ -1,13 +1,15 @@
 var restify = require('restify');
-
-function respond(req, res, next){
-	res.send('hello ' + req.params.name);
-	next();
-}
-
 var server = restify.createServer();
-server.get('/hello/:name', respond);
-server.head('/hello/:name', respond);
+
+var users = {};
+var max_user_id = 0;
+
+server.get('/', function(req, res, next){
+	res.setHeader('content-type', 'application/json');
+	res.writeHead(200);
+	res.end(JSON.stringify(users));
+	return next();
+});
 
 server.listen(8080, function(){
 	console.log('%s listening at %s', server.name, server.url);
