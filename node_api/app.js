@@ -12,7 +12,14 @@ server.get('/', function(req, res, next){
 	return next();
 });
 
-server.post('/:user', function(req, res, next){
+server.get('/user/:id', function(req, res, next){
+	res.setHeader('content-type', 'application/json');
+	res.writeHead(200);
+	res.end(JSON.stringify(users[parseInt(req.params.id)]));
+	return next();
+});
+
+server.post('/user', function(req, res, next){
 	var user = req.params;
 	max_user_id++;
 	user.id = max_user_id;
